@@ -1,3 +1,4 @@
+
 <section class="vh-100" style="background-color: #4B515D;">
   <div class="container py-5 h-100">
 
@@ -9,11 +10,14 @@
 
             <h3 class="mb-4 pb-2 fw-normal">Check the Current Weather</h3>
 
-            <form action="/cities" method="post">
+            <form action="/" method="post">
             <div class="input-group rounded mb-3">
             <input name="city" type="search" class="form-control rounded" placeholder="City" aria-label="Search"
                 aria-describedby="search-addon" />
             <button type="submit" class="input-group-text border-0 fw-bold" id="search-addon">Serach</button>
+            {{#if cityError}}
+            <label class="text-danger">{{cityError}}</label>
+            {{/if}}
             </div>
             </form>
 
@@ -39,9 +43,13 @@
                 </div>
               </div>
               <div>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu1.webp"
-                  width="100px">
+                <i class="weather-icon custom-icon" id="weather-icon"></i>
               </div>
+              <style>
+                .custom-icon {
+                    font-size: 100px; /
+                }
+              </style>
             </div>
 
           </div>
@@ -52,3 +60,25 @@
 
   </div>
 </section>
+
+  <script>
+
+  const temperature = 25;
+  let iconClass;
+
+  if (temperature >= 30) {
+    iconClass = "fas fa-sun";
+  } else if (temperature >= 20 && temperature < 30) {
+    iconClass = "fas fa-cloud-sun";
+  } else if (temperature >= 10 && temperature < 20) {
+    iconClass = "fas fa-cloud";
+  } else if (temperature >= 0 && temperature < 10) {
+    iconClass = "fas fa-smog";
+  } else {
+    iconClass = "fas fa-snowflake";
+  }
+
+  const weatherElement = document.querySelector(".weather-icon");
+  weatherElement.innerHTML = `<i class="${iconClass}"></i>`;
+
+  </script>
